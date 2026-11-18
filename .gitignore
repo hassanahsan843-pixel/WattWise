@@ -15,6 +15,7 @@ env/
 *.parquet
 *.joblib
 *.pkl
+*.zip
 
 # Testing & Cache
 .pytest_cache/

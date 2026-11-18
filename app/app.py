@@ -156,6 +156,18 @@ if data_source == "Select Household from Dataset":
             "No pre-processed dataset found. Please run the data pipeline or upload a CSV."
         )
 else:
+    # Option to download sample valid file for easy testing
+    sample_file_path = Path("data/sample_test_files/representative_valid_household_30d.csv")
+    if sample_file_path.exists():
+        with open(sample_file_path, "rb") as fp:
+            st.sidebar.download_button(
+                label="📥 Download Sample Meter CSV",
+                data=fp,
+                file_name="representative_valid_household_30d.csv",
+                mime="text/csv",
+                help="Click to download a valid 30-day smart meter CSV for testing upload."
+            )
+
     uploaded_file = st.sidebar.file_uploader(
         "Upload Smart Meter CSV", type=["csv", "parquet"]
     )

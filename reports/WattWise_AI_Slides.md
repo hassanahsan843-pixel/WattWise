@@ -1,5 +1,11 @@
 # WattWise AI: Live Demonstration & Academic Presentation Slides
 
+**Course:** AI2002 Artificial Intelligence (Semester 5) — Path A (Software Category)  
+**Group No.:** ______________ | **Section:** ______________  
+**Member 1 (Name & Roll#):** _______________________________________  
+**Member 2 (Name & Roll#):** _______________________________________  
+**Member 3 (Name & Roll#):** _______________________________________  
+
 ---
 
 ## Slide 1: Title & Project Overview

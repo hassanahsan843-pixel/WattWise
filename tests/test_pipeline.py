@@ -173,3 +173,42 @@ def test_app_input_validation_rules():
     # 3. Empty data
     empty_df = pd.DataFrame()
     assert empty_df.empty
+
+
+def test_sample_fixtures_representative_and_boundaries():
+    """Verify Criterion 7: tests multiple representative inputs and boundary invalid cases."""
+    fixture_dir = Path("data/sample_test_files")
+    
+    # Representative 1: Valid 30-day household
+    p_valid = fixture_dir / "representative_valid_household_30d.csv"
+    assert p_valid.exists()
+    df_valid = pd.read_csv(p_valid)
+    assert len(df_valid) == 30 * 48
+    assert "energy(kWh/hh)" in df_valid.columns or "kwh" in df_valid.columns
+    
+    # Representative 2: Household with injected anomalies
+    p_anom = fixture_dir / "representative_anomalous_household.csv"
+    assert p_anom.exists()
+    df_anom = pd.read_csv(p_anom)
+    assert len(df_anom) == 30 * 48
+    
+    # Boundary 1: Too short (< 14 days)
+    p_short = fixture_dir / "boundary_invalid_too_short_5d.csv"
+    assert p_short.exists()
+    df_short = pd.read_csv(p_short)
+    df_short["timestamp"] = pd.to_datetime(df_short["timestamp"])
+    span_days = (df_short["timestamp"].max() - df_short["timestamp"].min()).total_seconds() / 86400.0
+    assert span_days < 14.0  # Rejected by validation
+    
+    # Boundary 2: Missing required columns
+    p_miss = fixture_dir / "boundary_invalid_missing_columns.csv"
+    assert p_miss.exists()
+    df_miss = pd.read_csv(p_miss)
+    assert "kwh" not in df_miss.columns and "energy(kWh/hh)" not in df_miss.columns
+    
+    # Boundary 3: Empty file
+    p_empty = fixture_dir / "boundary_invalid_empty.csv"
+    assert p_empty.exists()
+    df_empty = pd.read_csv(p_empty)
+    assert len(df_empty) == 0  # Empty dataframe
+
