@@ -1,0 +1,3 @@
+Model,Precision,Recall,F1-Score,True Positives,False Positives,False Negatives
+Isolation Forest (WattWise),0.0609,0.3662,0.1044,1203,18558,2082
+Rolling Z-Score Baseline,0.9995,0.5881,0.7405,1932,1,1353
